@@ -16,7 +16,7 @@ let mult = (a, b) => {
 
 // for division
 let divide = (a, b) => {
-    return Number(b) !== Number(0) ? Math.round(Number(a) / Number(b)) : "ZERO Dvision Error!";
+    return Number(b) !== Number(0) ? Number(a) / Number(b) : "ZERO Dvision Error!";
 }
 
 // create obj to store the key:value pairs
@@ -36,23 +36,24 @@ let state = {
     'num1': "",
     'operater': "",
     'num2': "",
-    'display': '0'
+    'display': '0',
+    'hasDeciaml': false
 }
+
 function updateDisplay() {
     result.textContent = state.display;
 
 
 }
+
 function updateNum1() {
     // collect the calculated result to num1
     state.num1 = state.display;
-    // console.log("num1 as result: " + state.num1);
-    //made the num2 and operaotr empty
     state.num2 = "";
-    // console.log("num2 as empty: " + state.num2);
     state.operater = "";
-    // console.log("operater :" + state.operater);
+
 }
+
 // calling updateDisplay() to show the result
 updateDisplay();
 function $(item) {
@@ -61,27 +62,35 @@ function $(item) {
 
 }
 
-// state management 
-
-// flag for state management of the data flow
 
 //event for number click
 $(".number").forEach(btn => {
     btn.addEventListener("click", (e) => {
         let clickedNumber = e.target.textContent;
         // console.log("clicked number "  + clickedNumber);
+        if (state.currentMode == "showResult") {
+            // state.currentMode = "inputFirst";
+            // state.num1 = "";
+            // state.operater = "";
+            // state.num2 = "";
+            // state.display = '0';
+            clear();
+        }
+
         if (state.currentMode === "inputFirst") {
             if (state.display === '0') {
                 state.display = clickedNumber;
             } else {
                 state.display += clickedNumber;
             }
+
             // store value to num1
             state.num1 = state.display;
             updateDisplay();
 
         } else if (state.currentMode === "operaterSelected") {
             state.currentMode = "inputSecond";
+            $(".point").disabled = false;
             state.display = clickedNumber;
             updateDisplay();
 
@@ -94,21 +103,49 @@ $(".number").forEach(btn => {
 });
 
 
+// event for decimal point 
+$(".point").addEventListener("click", (e) => {
+    let decimalClicked = e.target.textContent;
+    console.log("state.display: " + state.display);
+    console.log("state: " + state);
+    if (state.currentMode == "operaterSelected") {
+        state.display = "0";
+        state.currentMode = "inputSecond";
+        state.display += decimalClicked;
+        updateDisplay();
+
+
+    } else if (!state.hasDeciaml) {
+        state.display += decimalClicked;
+        updateDisplay()
+    }
+
+    $(".point").disabled = true;
+    console.log(state);
+
+
+});
+
+
 //event for operator click
 $(".operater").forEach(op => {
     op.addEventListener("click", (e) => {
         let operatorClicked = e.target.textContent;
+
         if (state.currentMode == "inputFirst") {
 
             //after clicking num1 
             state.operater = operatorClicked;
             state.currentMode = "operaterSelected";
+            // disbale point to false
+            $(".point").disabled = false;
 
             // console.log("Mode changed to OPERATOR_SELECTED");
             // console.log("num1:", state.num1, "operater:", state.operater);
 
         } else if (state.currentMode == "inputSecond") {
             state.currentMode = "showResult";
+            $(".point").disabled = false;
             state.num2 = state.display;
             switch (state.operater) {
                 case "+": value = operate[state.operater](state.num1, state.num2); break;
@@ -116,8 +153,14 @@ $(".operater").forEach(op => {
                 case "x": value = operate[state.operater](state.num1, state.num2); break;
                 case "/": value = operate[state.operater](state.num1, state.num2); break;
             }
-            let result = value;
-            state.display = result;
+            if (value == "ZERO Dvision Error!") {
+                let result = value;
+                state.display = result;
+            } else {
+                let result = parseFloat(value.toFixed(2));
+                state.display = result;
+            }
+    
             updateNum1();
 
         }
@@ -126,16 +169,16 @@ $(".operater").forEach(op => {
             state.operater = operatorClicked;
         }
         updateDisplay();
+        state.display == "ZERO Dvision Error!" ? state.num1 = "" : state.num1 = state.display;
+        // console.log("After operator click - num1: " + state.num1 + " operater: " + state.operater);
 
-       
 
     });
 });
 
+
 $(".equal").addEventListener("click", (e) => {
-    // TO-do
-    // let equal = e.target.textContent;
-    // console.log("isEqual " + equal);
+   
     if (state.currentMode == "inputSecond") {
         state.currentMode = "showResult";
         state.num2 = state.display;
@@ -145,23 +188,39 @@ $(".equal").addEventListener("click", (e) => {
             case "x": value = operate[state.operater](state.num1, state.num2); break;
             case "/": value = operate[state.operater](state.num1, state.num2); break;
         }
-        let result = value;
-        state.display = result;
+        if (state.currentMode == "showResult") {
+            if (value == "ZERO Dvision Error!") {
+                let result = value;
+                state.display = result;
+            } else {
+                let result = parseFloat(value.toFixed(2));
+                state.display = result;
+            }
+
+        }
         updateNum1();
+
+
     }
     updateDisplay();
-
-
+    
 
 
 });
 
-$(".clear").addEventListener("click", () => {
+// clear everything and set state to its default.
+function clear() {
     state.currentMode = "inputFirst",
         state.num1 = "",
         state.operater = "",
         state.num2 = "",
-        state.display = "0"
+        state.display = "0",
+        state.hasDeciaml = false,
+        $(".point").disabled = false
+}
+
+$(".clear").addEventListener("click", () => {
+    clear()
     updateDisplay();
 });
 

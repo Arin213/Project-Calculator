@@ -1,4 +1,4 @@
-body {
+/* body {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,17 +13,19 @@ body {
 }
 
 .btn {
-    /* display: flex; */
+   
     height: 75px;
     width: 75px;
     font-size: 20px;
     border: 2px solid blueviolet;
     border-radius: 5px;
     margin:5px;
-    /* margin: 10px; */
+   
 }
 
 .calculator {
+    display: flex;
+    flex-direction: column;
     margin: 10px;
     border-radius: 5px;
     border: 3px solid yellowgreen;
@@ -59,11 +61,6 @@ body {
 
 }
 
-/* .prev{
- 
-    margin-right: 5px;
-
-} */
 
 .num1 {
     font-size:30px;
@@ -86,10 +83,167 @@ body {
     background-color: rgb(113, 165, 215);
 }
 
-.operator:hover,
+.operater:hover,
 .clear:hover,
 .point:hover,
 .equal:hover {
     background-color: silver;
 }
 
+
+
+.calculator-footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+  border-top: 1px solid #eee;
+}
+
+.calculator-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.calculator-footer a:hover {
+  text-decoration: underline;
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 10px;
+  background-color: #f0f0f0;
+  font-family: sans-serif;
+}
+
+/* Calculator container */
+.calculator {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid yellowgreen;
+  border-radius: 10px;
+  padding: 12px;
+  width: 100%;
+  max-width: 320px; /* Fits nicely on mobile */
+  background: white;
+}
+
+/* Display Screen */
+.screen {
+  width: 100%;
+  height: 70px;
+  border: 3px solid yellowgreen;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 10px;
+  margin-bottom: 15px;
+  overflow-x: auto;
+  background: #fff;
+}
+
+.num1 {
+  font-size: 22px;
+  margin-right: 5px;
+  color: #555;
+}
+
+.result {
+  font-size: 28px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* Button rows */
+.first-row,
+.rest-row {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+/* Buttons */
+.btn {
+  flex: 1;
+  height: 60px;
+  font-size: 20px;
+  border: 2px solid blueviolet;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+/* Hover effects */
+.number:hover {
+  background-color: rgb(113, 165, 215);
+}
+
+.operater:hover,
+.clear:hover,
+.point:hover,
+.equal:hover {
+  background-color: #d0d0d0;
+}
+
+/* Footer */
+.calculator-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  width: 100%;
+  max-width: 320px;
+}
+
+.calculator-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.calculator-footer a:hover {
+  text-decoration: underline;
+}
+
+/*Mobile Responsiveness (using media queries) */
+@media (max-width: 400px) {
+  .btn {
+    height: 56px;
+    font-size: 18px;
+  }
+
+  .result {
+    font-size: 24px;
+  }
+
+  .num1 {
+    font-size: 20px;
+  }
+
+  .calculator {
+    max-width: 290px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .btn {
+    height: 52px;
+    font-size: 16px;
+  }
+
+  .screen {
+    height: 60px;
+  }
+}
