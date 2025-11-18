@@ -159,11 +159,6 @@ This project reinforces:
 
 ✅ **Fully functional. No dependencies. Pure JavaScript.**
 
---- 
-Absolutely! Here’s an updated **README.md** section that adds a **"Limitations & Future Improvements"** part—including the lack of a backspace/delete button and missing keyboard support—while keeping the tone professional and honest, as expected in open-source or learning-project documentation.
-
----
-
 ## ⚠️ Limitations & Future Improvements
 
 While this calculator covers all requirements of The Odin Project’s Foundations curriculum, it has a few intentional or unintentional limitations that could be enhanced in a future version:
