@@ -4,6 +4,7 @@
 # **Simple Calculator**
 
 > A vanilla JavaScript calculator built as part of **The Odin Project**'s Foundations curriculum.
+# **link**: https://arin213.github.io/Project-Calculator/ 
 
 ## 📝 Description
 
