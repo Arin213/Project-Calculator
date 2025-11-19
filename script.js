@@ -16,7 +16,7 @@ let mult = (a, b) => {
 
 // for division
 let divide = (a, b) => {
-    return Number(b) !== Number(0) ? Number(a) / Number(b) : "ZERO Dvision Error!";
+    return Number(b) !== Number(0) ? Number(a) / Number(b) : "Error!";
 }
 
 // create obj to store the key:value pairs
@@ -69,11 +69,6 @@ $(".number").forEach(btn => {
         let clickedNumber = e.target.textContent;
         // console.log("clicked number "  + clickedNumber);
         if (state.currentMode == "showResult") {
-            // state.currentMode = "inputFirst";
-            // state.num1 = "";
-            // state.operater = "";
-            // state.num2 = "";
-            // state.display = '0';
             clear();
         }
 
@@ -153,7 +148,7 @@ $(".operater").forEach(op => {
                 case "x": value = operate[state.operater](state.num1, state.num2); break;
                 case "/": value = operate[state.operater](state.num1, state.num2); break;
             }
-            if (value == "ZERO Dvision Error!") {
+            if (value == "Error!") {
                 let result = value;
                 state.display = result;
             } else {
@@ -169,7 +164,7 @@ $(".operater").forEach(op => {
             state.operater = operatorClicked;
         }
         updateDisplay();
-        state.display == "ZERO Dvision Error!" ? state.num1 = "" : state.num1 = state.display;
+        state.display == "Error!" ? state.num1 = "" : state.num1 = state.display;
         // console.log("After operator click - num1: " + state.num1 + " operater: " + state.operater);
 
 
@@ -189,13 +184,14 @@ $(".equal").addEventListener("click", (e) => {
             case "/": value = operate[state.operater](state.num1, state.num2); break;
         }
         if (state.currentMode == "showResult") {
-            if (value == "ZERO Dvision Error!") {
+            if (value == "Error!") {
                 let result = value;
                 state.display = result;
             } else {
                 let result = parseFloat(value.toFixed(2));
                 state.display = result;
             }
+            $(".point").disabled = true;
 
         }
         updateNum1();
